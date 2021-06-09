@@ -14,12 +14,13 @@
   </div>
 
   <div class="box">
-    <% for (var i = 0; i< itemsArray.length; i++) { %>
+
+    <% itemsArray.forEach(item => { %>
     <div class="item">
       <input type="checkbox">
-      <p><%= itemsArray[i] %></p>
+      <p><%= item.name %></p>
     </div>
-    <% } %>
+    <% }); %>
 
     <form class="item" action="/" method="post">
       <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
