@@ -71,7 +71,7 @@ app.get("/", function(req, res) {
           console.log('Default Items in there');
         }
       });
-      res.redirect('/')
+      res.redirect('/');
     } else {
       res.render("list", {todaysDate : today, itemsArray : docs});
     }
@@ -84,7 +84,27 @@ app.get("/", function(req, res) {
 app.post("/", function(req, res) {
   var inputTxt = req.body.newItem;
 
-  items.push(inputTxt);
+  const newlyAddedItem = new Item({
+    name: inputTxt
+  });
+
+  newlyAddedItem.save();
 
   res.redirect("/");
+});
+
+// post method to remove item when checked
+app.post("/delete", function(req,res) {
+  const checkedItemId = req.body.checkbox;
+
+  // delete item in mongoose
+  Item.findByIdAndRemove(checkedItemId, function(err){
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Item with id " + checkedItemId + " removed");
+      res.redirect('/');
+    }
+  });
+
 })
