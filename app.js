@@ -9,19 +9,24 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(express.static("public"));
 
 // DB Stuff //
-mongoose.connect('mongodb://localhost:27017/todolistDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/todolistDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
-// DB Schema
+// DB Schema for items in a list
 const itemSchema = {
-    name: String
+  name: String
 };
 
 //make mongoose model collection
-const Item = mongoose.model('Item',itemSchema);
+const Item = mongoose.model('Item', itemSchema);
 
 // Create 3 default items for todolist view
 const item1 = new Item({
@@ -36,26 +41,35 @@ const item3 = new Item({
   name: "<-- Hit this to delete an item"
 });
 
-const defaultItems = [item1,item2,item3];
+const defaultItems = [item1, item2, item3];
 
+// db schema for lists
+// contains name of list of array of items made of itemSchema
+const listSchema = {
+  name: String,
+  items: [itemSchema]
+};
+
+// create list collection
+const List = mongoose.model("List", listSchema);
 
 app.listen(port, function() {
   console.log("App started on port " + port);
 });
 
-
+// route for home page
 app.get("/", function(req, res) {
 
-  var date = new Date();
-
-  var options = {
-    weekday: "long",
-    // day: "numeric",
-    // month: "long",
-    // year: "numeric"
-  };
-
-  var today = date.toLocaleDateString("en-US",options);
+  // ADD BACK IN DATE TO TITLE LATER
+  // var date = new Date();
+  //
+  // var options = {
+  //   weekday: "long",
+  //   // day: "numeric",
+  //   // month: "long",
+  //   // year: "numeric"
+  // };
+  // var today = date.toLocaleDateString("en-US", options);
 
   // put items from mongoose db onto todo App
   // if no items in DB, add default items to todolist from above
@@ -73,32 +87,88 @@ app.get("/", function(req, res) {
       });
       res.redirect('/');
     } else {
-      res.render("list", {todaysDate : today, itemsArray : docs});
+      res.render("list", {
+        listTitle: 'Today',
+        itemsArray: docs
+      });
     }
 
   });
 
-
 });
+
+// route for custom lists
+app.get("/:customListName", function(req,res){
+
+  const customListName = req.params.customListName;
+
+  List.findOne({name: customListName}, function(err, listName) {
+    if (!err) {
+      if (listName) {
+        // if list exists, show list
+        res.render("list", {
+          listTitle: listName.name,
+          itemsArray: listName.items
+        });
+
+      }
+      else {
+        // if list doesnt exist, make list
+        const list = new List({
+          name: customListName,
+          items: defaultItems
+        })
+        list.save();
+        res.redirect("/"+customListName);
+      }
+    }
+    else {
+      console.log(err);
+    }
+
+  })
+
+
+})
+
+
+
+
+
 
 app.post("/", function(req, res) {
   var inputTxt = req.body.newItem;
+  var listTitle = req.body.list;
 
   const newlyAddedItem = new Item({
     name: inputTxt
   });
 
-  newlyAddedItem.save();
+  // Add to appropriate List
+  if (listTitle === "Today") {
+    newlyAddedItem.save();
+    res.redirect("/");
+  } else {
+    List.findOne({name: listTitle}, function(err, foundList){
+      foundList.items.push(newlyAddedItem);
+      foundList.save();
+      res.redirect("/"+listTitle);
+    });
 
-  res.redirect("/");
+
+
+
+
+  }
+
 });
 
 // post method to remove item when checked
-app.post("/delete", function(req,res) {
+app.post("/delete", function(req, res) {
   const checkedItemId = req.body.checkbox;
 
   // delete item in mongoose
-  Item.findByIdAndRemove(checkedItemId, function(err){
+  Item.findByIdAndRemove(checkedItemId, function(err) {
     if (err) {
       console.log(err);
     } else {

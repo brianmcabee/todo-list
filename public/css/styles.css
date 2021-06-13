@@ -2,7 +2,7 @@ html {
   /* background-color: #E4E9FD;
   background-image: -webkit-linear-gradient(65deg, #F05E23 50%, #E4E9FD 50%); */
   background-color: #FAD961;
-  background-image: linear-gradient(320deg, #FAD961 0%, #F76B1C 100%);
+  background-image: linear-gradient(320deg, #FAD961 10%, #F76B1C 74%);
   min-height: 1000px;
   font-family: "Segoe UI", Arial, sans-serif;
 }
