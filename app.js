@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const _ = require("lodash");
 
 // localhost port to listen on
 var port = 3000;
@@ -100,7 +101,7 @@ app.get("/", function(req, res) {
 // route for custom lists
 app.get("/:customListName", function(req,res){
 
-  const customListName = req.params.customListName;
+  const customListName = _.capitalize(req.params.customListName);
 
   List.findOne({name: customListName}, function(err, listName) {
     if (!err) {
@@ -183,7 +184,7 @@ app.post("/delete", function(req, res) {
     List.findOneAndUpdate(
       {name: listName},
       // query below means, remove (pull) element from an array in the found doc
-      // based on condition 
+      // based on condition
       { $pull: {items: {_id: checkedItemId}}},
       function(err,foundList) {
         if (!err) {
