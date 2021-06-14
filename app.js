@@ -166,15 +166,34 @@ app.post("/", function(req, res) {
 // post method to remove item when checked
 app.post("/delete", function(req, res) {
   const checkedItemId = req.body.checkbox;
+  const listName = req.body.currentListName;
 
-  // delete item in mongoose
-  Item.findByIdAndRemove(checkedItemId, function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Item with id " + checkedItemId + " removed");
-      res.redirect('/');
-    }
-  });
+  if (listName === 'Today') {
+    // delete item in mongoose from default list
+    Item.findByIdAndRemove(checkedItemId, function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Item with id " + checkedItemId + " removed");
+        res.redirect('/');
+      }
+    });
+  } else {
+    // delete item from custom list
+    List.findOneAndUpdate(
+      {name: listName},
+      // query below means, remove (pull) element from an array in the found doc
+      // based on condition 
+      { $pull: {items: {_id: checkedItemId}}},
+      function(err,foundList) {
+        if (!err) {
+          // if no errors, redirect to custom list page
+          res.redirect('/'+listName);
+        }
+      })
+
+  }
+
+
 
 })

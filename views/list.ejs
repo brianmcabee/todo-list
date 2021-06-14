@@ -15,12 +15,18 @@
 
   <div class="box">
 
+    <!-- loop thru each item in items array and show it with a checkbox next to it -->
     <% itemsArray.forEach(item => { %>
       <form action="/delete" method="post">
         <div class="item">
+          <!-- checkbox used to delete item once clicked -->
           <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange="this.form.submit()">
           <p><%= item.name %></p>
         </div>
+
+        <!-- add hidden input to get list name from form so we can delete items from a custom list -->
+        <input type="hidden" name="currentListName" value="<%= listTitle %>">
+
       </form>
     <% }); %>
 
