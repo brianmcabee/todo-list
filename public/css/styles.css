@@ -1,10 +1,11 @@
-html {
-  /* background-color: #E4E9FD;
-  background-image: -webkit-linear-gradient(65deg, #F05E23 50%, #E4E9FD 50%); */
-  background-color: #FAD961;
-  background-image: linear-gradient(320deg, #FAD961 10%, #F76B1C 74%);
+body {
+
+  background: #373B44;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #4286f4, #373B44); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   min-height: 1000px;
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 
@@ -22,7 +23,9 @@ h1 {
 }
 
 #heading {
-  background-color: #F76B1C;
+  background: #373B44;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #373B44, #4286f4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   text-align: center;
 }
 
@@ -64,10 +67,11 @@ button {
   width: 50px;
   border-radius: 50%;
   border-color: transparent;
-  background-color: #F76B1C;
+  background: #373B44;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #373B44, #4286f4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: #fff;
-  font-size: 30px;
-  padding-bottom: 6px;
+  font-size: 2rem;
   border-width: 0;
 }
 

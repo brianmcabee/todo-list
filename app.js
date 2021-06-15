@@ -65,6 +65,10 @@ app.listen(port, function() {
 
 });
 
+// List title for homepage
+const defaultListTitle = "Today";
+
+
 // route for home page
 app.get("/", function(req, res) {
 
@@ -96,7 +100,7 @@ app.get("/", function(req, res) {
       res.redirect('/');
     } else {
       res.render("list", {
-        listTitle: 'Today',
+        listTitle: defaultListTitle,
         itemsArray: docs
       });
     }
@@ -153,7 +157,7 @@ app.post("/", function(req, res) {
   });
 
   // Add to appropriate List
-  if (listTitle === "Today") {
+  if (listTitle === defaultListTitle) {
     newlyAddedItem.save();
     res.redirect("/");
   } else {
@@ -176,7 +180,7 @@ app.post("/delete", function(req, res) {
   const checkedItemId = req.body.checkbox;
   const listName = req.body.currentListName;
 
-  if (listName === 'Today') {
+  if (listName === defaultListTitle) {
     // delete item in mongoose from default list
     Item.findByIdAndRemove(checkedItemId, function(err) {
       if (err) {
