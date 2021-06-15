@@ -3,9 +3,6 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const _ = require("lodash");
 
-// localhost port to listen on
-var port = 3000;
-
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -54,8 +51,18 @@ const listSchema = {
 // create list collection
 const List = mongoose.model("List", listSchema);
 
+// localhost port to listen on
+let port = process.env.PORT;
+
+if (port == null || port == "") {
+  port = 3000;
+}
+
 app.listen(port, function() {
-  console.log("App started on port " + port);
+  if (port === 3000) {
+      console.log("App started on port " + port);
+  }
+
 });
 
 // route for home page
