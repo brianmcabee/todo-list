@@ -63,7 +63,7 @@ form.item {
   margin-left: 20px;
 }
 
-button {
+.new-item-btn {
   min-height: 50px;
   width: 50px;
   border-radius: 50%;
@@ -89,13 +89,27 @@ input[type="text"] {
 
 input[type="text"]:focus {
   outline: none;
-  box-shadow: inset 0 -3px 0 0 #F05E23;
+  box-shadow: inset 0 -3px 0 0 #373B44;
 }
 
 ::placeholder {
   color: grey;
   opacity: 1;
 }
+
+.dropdown-toggle {
+  width: 100%;
+  background: #373B44;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #373B44, #4286f4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #fff;
+  border: none;
+}
+
+.dropdown-menu {
+  width: 100%;
+}
+
 
 footer {
   color: white;

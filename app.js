@@ -113,7 +113,9 @@ app.get("/", function(req, res) {
     } else {
       res.render("list", {
         listTitle: defaultListTitle,
-        itemsArray: docs
+        itemsArray: docs,
+        listNameArray: allListNames,
+        defaultListTitle: defaultListTitle
       });
     }
   });
@@ -132,7 +134,9 @@ app.get("/:customListName", function(req,res){
         // if list exists, show list
         res.render("list", {
           listTitle: listName.name,
-          itemsArray: listName.items
+          itemsArray: listName.items,
+          listNameArray: allListNames,
+          defaultListTitle: defaultListTitle
         });
       }
       else {
