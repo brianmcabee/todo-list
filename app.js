@@ -69,6 +69,18 @@ app.listen(port, function() {
 const defaultListTitle = "Today";
 
 
+// array for all list names (default and custom)
+var allListNames = [defaultListTitle];
+
+// get all custom list names and add them to allListNames
+List.find({}).select('name').exec(function(err,docs){
+    for (var i = 0; i < docs.length; i++) {
+      allListNames.push(docs[i].name);
+    }
+  }
+);
+
+
 // route for home page
 app.get("/", function(req, res) {
 
@@ -104,15 +116,15 @@ app.get("/", function(req, res) {
         itemsArray: docs
       });
     }
-
   });
 
+  console.log(allListNames);
 });
 
 // route for custom lists
 app.get("/:customListName", function(req,res){
-
   const customListName = _.capitalize(req.params.customListName);
+
 
   List.findOne({name: customListName}, function(err, listName) {
     if (!err) {
@@ -122,7 +134,6 @@ app.get("/:customListName", function(req,res){
           listTitle: listName.name,
           itemsArray: listName.items
         });
-
       }
       else {
         // if list doesnt exist, make list
@@ -137,7 +148,6 @@ app.get("/:customListName", function(req,res){
     else {
       console.log(err);
     }
-
   })
 
 
@@ -166,13 +176,7 @@ app.post("/", function(req, res) {
       foundList.save();
       res.redirect("/"+listTitle);
     });
-
-
-
-
-
   }
-
 });
 
 // post method to remove item when checked
