@@ -24,6 +24,7 @@ h1 {
 }
 
 #heading {
+/*
   background: #373B44;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to top, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to top, #373B44, #4286f4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -77,7 +78,8 @@ form.item {
   border-width: 0;
 }
 
-input[type="text"] {
+
+.new-item-input {
   text-align: center;
   height: 60px;
   top: 10px;
@@ -110,6 +112,21 @@ input[type="text"]:focus {
 .dropdown-menu {
   width: 100%;
 }
+
+.create-list-btn {
+  background: #373B44;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #373B44, #4286f4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #fff;
+  border: none;
+}
+
+button:hover {
+  filter: brightness(60%);
+  transition: 0.2s ease-in;
+}
+
+
 
 
 footer {
