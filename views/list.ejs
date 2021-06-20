@@ -49,11 +49,11 @@
 
   <!-- create new list form -->
   <div class="box">
-    <form class="create-new-list-form" action="/" method="post">
+    <form class="create-new-list-form" action="/create-list" method="post">
       <div class="input-group form-floating ">
-        <input type="text" class="new-list form-control" id="floatingInput" >
+        <input type="text" class="new-list form-control" name="newList" id="floatingInput" autocomplete="off">
         <label for="floatingInput">Create New List</label>
-        <button class="btn btn-primary create-list-btn" type="button">Create</button>
+        <button class="btn btn-primary create-list-btn" type="submit">Create</button>
       </div>
     </form>
 

@@ -146,6 +146,10 @@ app.get("/:customListName", function(req,res){
           items: defaultItems
         })
         list.save();
+
+        if (!allListNames.includes(customListName)) {
+          allListNames.push(customListName);
+        }
         res.redirect("/"+customListName);
       }
     }
@@ -213,7 +217,12 @@ app.post("/delete", function(req, res) {
       })
 
   }
+})
 
+// post method to create a new list
+app.post("/create-list", function(req, res) {
+  const newListName = req.body.newList;
 
-
+  // if list is already created, navigate to list
+  res.redirect('/'+newListName);
 })
