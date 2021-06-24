@@ -215,7 +215,6 @@ app.post("/delete", function(req, res) {
           res.redirect('/'+listName);
         }
       })
-
   }
 })
 
@@ -225,4 +224,10 @@ app.post("/create-list", function(req, res) {
 
   // if list is already created, navigate to list
   res.redirect('/'+newListName);
+})
+
+// post method to delete a current list that is not the default list
+//  After deletion, redirect to default list
+app.post("/delete-list", function(req, res) {
+  const listNameToDelete = req.body.listTitle;
 })

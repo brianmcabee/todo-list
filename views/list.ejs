@@ -29,7 +29,7 @@
   </div>
 
   <!-- updated dropdown list -->
-  <div class="box">
+  <div class="box non-todo-box">
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
         Navigate to Another List
@@ -48,7 +48,7 @@
   </div>
 
   <!-- create new list form -->
-  <div class="box">
+  <div class="box non-todo-box">
     <form class="create-new-list-form" action="/create-list" method="post">
       <div class="input-group form-floating ">
         <input type="text" class="new-list form-control" name="newList" id="floatingInput" autocomplete="off">
@@ -56,7 +56,16 @@
         <button class="btn btn-primary create-list-btn" type="submit">Create</button>
       </div>
     </form>
-
   </div>
+
+  <!-- delete list button -->
+  <% if (listTitle != defaultListTitle) { %>
+  <div class="box non-todo-box">
+    <form class="" action="/delete-list" method="post">
+      <button class="delete-list-btn" type="submit" name="delete-list-btn">Delete Current List</button>
+    </form>
+  </div>
+  <% } %>
+
 
 <%- include('partials/footer'); %>
