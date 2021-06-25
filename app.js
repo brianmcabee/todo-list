@@ -157,14 +157,7 @@ app.get("/:customListName", function(req,res){
       console.log(err);
     }
   })
-
-
 })
-
-
-
-
-
 
 app.post("/", function(req, res) {
   var inputTxt = req.body.newItem;
@@ -229,5 +222,20 @@ app.post("/create-list", function(req, res) {
 // post method to delete a current list that is not the default list
 //  After deletion, redirect to default list
 app.post("/delete-list", function(req, res) {
-  const listNameToDelete = req.body.listTitle;
+  const listNameToDelete = req.body.deleteListBtn;
+  const listNameToDeleteIndex = allListNames.indexOf(listNameToDelete);
+  // delete from mongodb
+  List.findOneAndDelete({name: listNameToDelete}, function(err, docs) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(docs.name + " list removed from db");
+    }
+  })
+
+  // remove element from array
+  allListNames.splice(listNameToDeleteIndex,1);
+
+  // nav back to homepage
+  res.redirect('/');
 })

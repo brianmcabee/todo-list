@@ -62,7 +62,7 @@
   <% if (listTitle != defaultListTitle) { %>
   <div class="box non-todo-box">
     <form class="" action="/delete-list" method="post">
-      <button class="delete-list-btn" type="submit" name="delete-list-btn">Delete Current List</button>
+      <button class="delete-list-btn" type="submit" value="<%= listTitle %>"name="deleteListBtn">Delete Current List</button>
     </form>
   </div>
   <% } %>
